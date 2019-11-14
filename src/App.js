@@ -3,7 +3,7 @@ import './App.css';
 import lodash from 'lodash'
 import YAML from 'json2yaml'
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 
 class App extends React.Component {
@@ -27,9 +27,6 @@ class App extends React.Component {
         let lines = this.state.value.split(/\r?\n/);
         let properties = {};
         for (let line of lines) {
-
-            console.log(line);
-
             if (line.charAt(0) && line.charAt(0) !== '#') {
                 let parsedLine = line.split(/=(.+)/);
                 let pieces = parsedLine[0].split('.');
@@ -38,10 +35,7 @@ class App extends React.Component {
             }
         }
         let ymlText = YAML.stringify(properties);
-
-        // alert('results: \n' + ymlText);
         this.setState({properties: ymlText});
-
         event.preventDefault();
     }
 
@@ -49,7 +43,6 @@ class App extends React.Component {
         return (
             <div className="App">
                 <header className="App-header">
-
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             properties:
@@ -57,18 +50,18 @@ class App extends React.Component {
                         </label>
                         <input type="submit" value="Submit"/>
                     </form>
-
                 </header>
                 <div>
-
-                    <SyntaxHighlighter language="yaml" style={docco}>
-                        {this.state.properties}
-                    </SyntaxHighlighter>
-
+                        <pre style={{textAlign: 'left'}}>
+                            <SyntaxHighlighter language="yaml" style={docco}>
+                                {`${this.state.properties}`}
+                            </SyntaxHighlighter>
+                        </pre>
                 </div>
             </div>
         );
     }
+
 }
 
 export default App;
